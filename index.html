@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Survei Kepuasan Masyarakat</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #004e92, #000428);
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        background: white;
+        max-width: 900px;
+        margin: auto;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+      h1,
+      h2 {
+        text-align: center;
+      }
+      h1 {
+        color: #004e92;
+      }
+      .section-title {
+        margin-top: 30px;
+        padding-bottom: 5px;
+        border-bottom: 2px solid #004e92;
+        font-weight: bold;
+      }
+      .question {
+        background: #f2f8ff;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 10px;
+      }
+      label {
+        display: block;
+        margin-top: 5px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+      button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background: #004e92;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #003366;
+      }
+      .success {
+        text-align: center;
+        color: green;
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>SURVEI KEPUASAN MASYARAKAT (SKM)</h1>
+      <h2>Kecamatan Talun Kabupaten Pekalongan</h2>
+
+      <form id="skmForm">
+        <div class="section-title">Tanggal Survei</div>
+        <input type="date" name="tanggal" required />
+
+        <div class="section-title">I. Identitas Responden</div>
+
+        <label>Jenis Kelamin</label>
+        <select name="jenis_kelamin" required>
+          <option value="">-- Pilih --</option>
+          <option>Laki-laki</option>
+          <option>Perempuan</option>
+        </select>
+
+        <label>Pendidikan</label>
+        <input type="text" name="pendidikan" required />
+
+        <label>Pekerjaan</label>
+        <input type="text" name="pekerjaan" required />
+
+        <label>Usia</label>
+        <input type="number" name="usia" required />
+
+        <label>Jenis Layanan di Bagian</label>
+        <input type="text" name="jenis_layanan" required />
+
+        <div class="section-title">
+          II. Pendapat Responden Tentang Pelayanan
+        </div>
+
+        <div class="question">
+          1. Bagaimana menurut Saudara kesesuaian persyaratan yang harus
+          dipenuhi dalam pengurusan pelayanan dengan hasil/jenis pelayanan yang
+          diberikan oleh Kantor Kecamatan Talun,kabupaten Pekalongan?
+          <label
+            ><input type="radio" name="q1" value="Tidak sesuai" required />
+            Tidak sesuai</label
+          >
+          <label><input type="radio" name="q1" value="Sesuai" /> Sesuai</label>
+          <label
+            ><input type="radio" name="q1" value="Sangat sesuai" /> Sangat
+            sesuai</label
+          >
+        </div>
+
+        <div class="question">
+          2. Bagaimana pendapat Saudara tentang prosedur pelayanan yang
+          dilaksanakan di Kantor Kecamatan Talun,Kabupaten Pekalongan ini?
+          <label
+            ><input type="radio" name="q2" value="Tidak mudah" required /> Tidak
+            mudah</label
+          >
+          <label
+            ><input type="radio" name="q2" value="Kurang mudah" /> Kurang
+            mudah</label
+          >
+          <label><input type="radio" name="q2" value="Mudah" /> Mudah</label>
+          <label
+            ><input type="radio" name="q2" value="Sangat mudah" /> Sangat
+            mudah</label
+          >
+        </div>
+
+        <div class="question">
+          3. Bagaimana menurut Saudara tentang ketepatan waktu pelayanan di
+          Kantor Kecamatan Talun,Kabupaten Pekalongan ini?
+          <label
+            ><input type="radio" name="q3" value="Tidak cepat" required /> Tidak
+            cepat</label
+          >
+          <label
+            ><input type="radio" name="q3" value="Kurang cepat" /> Kurang
+            cepat</label
+          >
+          <label><input type="radio" name="q3" value="Cepat" /> Cepat</label>
+          <label
+            ><input type="radio" name="q3" value="Selalu tepat" /> Selalu
+            tepat</label
+          >
+        </div>
+
+        <div class="question">
+          4. Bagaimana pendapat Saudara tentang kewajaran biaya untuk
+          mendapatkan pelayanan ?
+          <label
+            ><input type="radio" name="q4" value="Sangat mahal" required />
+            Sangat mahal</label
+          >
+          <label
+            ><input type="radio" name="q4" value="Cukup mahal" /> Cukup
+            mahal</label
+          >
+          <label><input type="radio" name="q4" value="Murah" /> Murah</label>
+          <label><input type="radio" name="q4" value="Gratis" /> Gratis</label>
+        </div>
+
+        <div class="question">
+          5. Bagaimana pendapat Saudara tentang kesesuaian produk layanan antara
+          yang tercantum dalam standar pelayanan dengan hasil yang diberikan
+          oleh Kantor Kecamatan Talun,Kabupaten Pekalongan?
+          <label
+            ><input type="radio" name="q5" value="Tidak sesuai" required />
+            Tidak sesuai</label
+          >
+          <label
+            ><input type="radio" name="q5" value="Kurang sesuai" /> Kurang
+            sesuai</label
+          >
+          <label><input type="radio" name="q5" value="Sesuai" /> Sesuai</label>
+          <label
+            ><input type="radio" name="q5" value="Sangat sesuai" /> Sangat
+            sesuai</label
+          >
+        </div>
+
+        <div class="question">
+          6. Bagaimana pendapat Saudara tentang kemampuan petugas dalam
+          memberikan pelayanan di Kantor Kecamatan Talun, Kabupaten Pekalongan?
+          <label
+            ><input type="radio" name="q6" value="Tidak mampu" required /> Tidak
+            mampu</label
+          >
+          <label
+            ><input type="radio" name="q6" value="Kurang mampu" /> Kurang
+            mampu</label
+          >
+          <label><input type="radio" name="q6" value="Mampu" /> Mampu</label>
+          <label
+            ><input type="radio" name="q6" value="Sangat mampu" /> Sangat
+            mampu</label
+          >
+        </div>
+
+        <div class="question">
+          7. Bagaimana pendapat Saudara perilaku petugas di Kantor Kecamatan
+          Talun Kabupaten Pekalongan dalam pelayanan terkait kesopanan dan
+          keramahan?
+          <label
+            ><input
+              type="radio"
+              name="q7"
+              value="Tidak sopan dan ramah"
+              required
+            />
+            Tidak sopan dan ramah</label
+          >
+          <label
+            ><input type="radio" name="q7" value="Kurang sopan dan ramah" />
+            Kurang sopan dan ramah</label
+          >
+          <label
+            ><input type="radio" name="q7" value="Sopan dan ramah" /> Sopan dan
+            ramah</label
+          >
+          <label
+            ><input type="radio" name="q7" value="Sangat sopan dan ramah" />
+            Sangat sopan dan ramah</label
+          >
+        </div>
+
+        <div class="question">
+          8. Bagaimana pendapat Saudara perilaku petugas di Kantor Kecamatan
+          Talun Kabupaten Pekalongan dalam pelayanan terkait kesopanan dan
+          keramahan?
+          <label
+            ><input type="radio" name="q8" value="Buruk" required />
+            Buruk</label
+          >
+          <label><input type="radio" name="q8" value="Cukup" /> Cukup</label>
+          <label><input type="radio" name="q8" value="Baik" /> Baik</label>
+          <label
+            ><input type="radio" name="q8" value="Sangat baik" /> Sangat
+            baik</label
+          >
+        </div>
+
+        <div class="question">
+          9. Bagaimana pendapat Saudara tentang penanganan pengaduan pengguna
+          layanan Kantor Kecamatan Talun,Kabupaten Pekalongan ini?
+          <label
+            ><input type="radio" name="q9" value="Tidak ada" required /> Tidak
+            ada</label
+          >
+          <label
+            ><input type="radio" name="q9" value="Ada tapi tidak berfungsi" />
+            Ada tapi tidak berfungsi</label
+          >
+          <label
+            ><input type="radio" name="q9" value="Berfungsi kurang maksimal" />
+            Berfungsi kurang maksimal</label
+          >
+          <label
+            ><input type="radio" name="q9" value="Dikelola dengan baik" />
+            Dikelola dengan baik</label
+          >
+        </div>
+
+        <label>Saran dan Masukan</label>
+        <textarea name="saran"></textarea>
+
+        <button type="submit">Kirim Survei</button>
+      </form>
+
+      <p class="success" id="msg"></p>
+    </div>
+
+    <script>
+      document
+        .getElementById("skmForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var formData = new FormData(this);
+
+          fetch(
+            "https://script.google.com/macros/s/AKfycbym1dBJooKvTFjRCfPe83OU4W8ek4ZbevBIb6AAjyfVWmfvHmD0h2mCw-xX91lDwPLUeg/exec",
+            {
+              method: "POST",
+              body: formData,
+            },
+          )
+            .then((res) => res.text())
+            .then((data) => {
+              document.getElementById("msg").innerHTML =
+                "Terima kasih, survei berhasil dikirim.";
+              document.getElementById("skmForm").reset();
+            });
+        });
+    </script>
+  </body>
+</html>
