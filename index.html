@@ -91,14 +91,24 @@
         </div>
 
         <div class="field">
-          <label for="jenis_kelamin"
-            >Jenis Kelamin<span class="req" aria-hidden="true">*</span></label
-          >
-          <select id="jenis_kelamin" name="jenis_kelamin" required>
-            <option value="">-- Pilih --</option>
-            <option>Laki-laki</option>
-            <option>Perempuan</option>
-          </select>
+          <div class="field-label" id="jkLabel">
+            Jenis Kelamin<span class="req" aria-hidden="true">*</span>
+          </div>
+          <div class="options options-inline" role="radiogroup" aria-labelledby="jkLabel">
+            <label class="opt"
+              ><input
+                type="radio"
+                name="jenis_kelamin"
+                value="Laki-laki"
+                required
+              />
+              <span>Laki-laki</span></label
+            >
+            <label class="opt"
+              ><input type="radio" name="jenis_kelamin" value="Perempuan" />
+              <span>Perempuan</span></label
+            >
+          </div>
           <small class="help" hidden>Silakan pilih jenis kelamin.</small>
         </div>
 

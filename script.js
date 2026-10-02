@@ -262,18 +262,32 @@
       ["Tanggal", prettyDate(tanggal.value)],
     ]);
 
-    var identitas = [];
-    ["jenis_kelamin", "pendidikan", "pekerjaan", "usia", "jenis_layanan"].forEach(
-      function (name) {
-        var el = form.elements[name];
-        var label = el.closest(".field").querySelector("label");
-        var clone = label.cloneNode(true);
-        Array.prototype.forEach.call(clone.querySelectorAll(".hint"), function (h) {
-          h.remove();
-        });
-        identitas.push([clean(clone.textContent), clean(el.value)]);
+    function nilaiDanLabel(name) {
+      var group = form.querySelectorAll('[name="' + name + '"]');
+      if (group.length && group[0].type === "radio") {
+        var checked = form.querySelector('[name="' + name + '"]:checked');
+        var nilai = checked ? checked.value : "-";
+        return nilai;
       }
-    );
+      return clean(form.elements[name].value);
+    }
+
+    var identitas = [];
+    [
+      "jenis_kelamin",
+      "pendidikan",
+      "pekerjaan",
+      "usia",
+      "jenis_layanan",
+    ].forEach(function (name) {
+      var field = form.querySelector('[name="' + name + '"]').closest(".field");
+      var label = field.querySelector("label, .field-label");
+      var clone = label.cloneNode(true);
+      Array.prototype.forEach.call(clone.querySelectorAll(".hint"), function (h) {
+        h.remove();
+      });
+      identitas.push([clean(clone.textContent), nilaiDanLabel(name)]);
+    });
     html += reviewGroup("Identitas Responden", identitas);
 
     var penilaian = [];

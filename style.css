@@ -332,6 +332,18 @@ textarea:focus-visible {
   }
 }
 
+.options-inline .opt span {
+  justify-content: center;
+  font-size: calc(1.05rem * var(--scale));
+}
+
+@media (min-width: 640px) {
+  .options-inline {
+    grid-template-columns: 1fr 1fr;
+    max-width: 26rem;
+  }
+}
+
 .opt {
   display: block;
   position: relative;
