@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Dashboard monitoring indeks kepuasan masyarakat dengan pengelompokan K-Means, Kecamatan Talun Kabupaten Pekalongan."
+    />
+    <title>Dashboard Monitoring Indeks | K-Means</title>
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Langsung ke isi dashboard</a>
+
+    <header class="dash-header">
+      <div class="wrap">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">&#128202;</div>
+          <div>
+            <h1>Dashboard Monitoring Indeks Kepuasan</h1>
+            <p>Kecamatan Talun &middot; Kabupaten Pekalongan</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span id="sourceBadge" class="source-badge loading">Memuat data&hellip;</span>
+          <button type="button" class="btn" id="refreshBtn">Muat Ulang</button>
+          <a class="btn primary" href="index.html">Isi Survei</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap" id="main">
+      <p class="data-note" id="dataNote" hidden></p>
+
+      <section class="panel filters" aria-label="Filter data">
+        <div class="filters-head">
+          <h2>Filter Data</h2>
+          <p class="muted">
+            Pilih periode, jenis layanan, atau jenis kelamin. Indeks dan
+            kelompok K-Means dihitung ulang otomatis.
+          </p>
+        </div>
+        <div class="filter-grid">
+          <div class="filter">
+            <label for="filterFrom">Periode dari</label>
+            <input type="date" id="filterFrom" />
+          </div>
+          <div class="filter">
+            <label for="filterTo">Sampai</label>
+            <input type="date" id="filterTo" />
+          </div>
+          <div class="filter">
+            <label for="filterService">Jenis Layanan</label>
+            <select id="filterService">
+              <option value="">Semua layanan</option>
+            </select>
+          </div>
+          <div class="filter">
+            <label for="filterGender">Jenis Kelamin</label>
+            <select id="filterGender">
+              <option value="">Semua</option>
+            </select>
+          </div>
+          <div class="filter filter-actions">
+            <button type="button" class="btn-filter" id="resetFilter">
+              Reset Filter
+            </button>
+          </div>
+        </div>
+        <p class="filter-status" id="filterStatus">Menampilkan semua responden.</p>
+      </section>
+
+      <section class="kpis" aria-label="Ringkasan utama">
+        <article class="kpi">
+          <div class="kpi-label">Total Responden</div>
+          <div class="kpi-value" id="kpiTotal">-</div>
+          <div class="kpi-sub" id="kpiTotalSub">orang yang dianalisis</div>
+        </article>
+        <article class="kpi accent">
+          <div class="kpi-label">Indeks Kepuasan (IKM)</div>
+          <div class="kpi-value" id="kpiIndex">-</div>
+          <div class="kpi-sub">
+            <span class="kpi-cat" id="kpiIndexCat">-</span>
+          </div>
+        </article>
+        <article class="kpi">
+          <div class="kpi-label">Jumlah Kelompok (K)</div>
+          <div class="kpi-value" id="kpiK">-</div>
+          <div class="kpi-sub">kelompok hasil K-Means</div>
+        </article>
+        <article class="kpi">
+          <div class="kpi-label">Perlu Perhatian</div>
+          <div class="kpi-value" id="kpiAttention">-</div>
+          <div class="kpi-sub" id="kpiAttentionSub">responden pada kelompok terendah</div>
+        </article>
+      </section>
+
+      <section class="panel controls" aria-label="Pengaturan analisis">
+        <div class="control">
+          <label for="kRange">Jumlah kelompok (K)</label>
+          <input
+            type="range"
+            id="kRange"
+            min="2"
+            max="5"
+            step="1"
+            value="3"
+            aria-describedby="kHelp"
+          />
+          <output class="k-output" id="kOut" for="kRange">3</output>
+        </div>
+        <p class="control-help" id="kHelp">
+          Geser untuk mencoba jumlah kelompok. K-Means membagi responden menjadi
+          K kelompok berdasarkan kemiripan jawaban.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="panel wide">
+          <h2>Sebaran Responden &amp; Kelompok K-Means</h2>
+          <p class="muted">
+            Setiap titik adalah satu responden. Titik yang berdekatan berarti
+            jawabannya mirip. Lingkaran besar bertanda K1, K2, &hellip; adalah
+            pusat kelompok.
+          </p>
+          <div id="scatter" class="chart-host">
+            <div class="loading-box">Menghitung kelompok K-Means&hellip;</div>
+          </div>
+          <div id="clusterLegend" class="legend"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Rata-rata Indeks per Kelompok</h2>
+          <p class="muted">Semakin panjang batang, semakin tinggi kepuasannya.</p>
+          <div id="clusterBars"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Sebaran Nilai Indeks</h2>
+          <p class="muted">
+            Banyaknya responden pada setiap rentang nilai indeks (0&ndash;100).
+          </p>
+          <div id="histogram" class="chart-host"></div>
+        </article>
+
+        <article class="panel wide">
+          <h2>Nilai per Unsur Pelayanan</h2>
+          <p class="muted">
+            Rata-rata nilai tiap unsur dalam skala 1&ndash;4. Unsur dengan batang
+            pendek perlu menjadi prioritas perbaikan.
+          </p>
+          <div id="unsurBars"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Indeks per Jenis Layanan</h2>
+          <p class="muted">
+            Membandingkan kepuasan antar jenis layanan pada filter yang aktif.
+          </p>
+          <div id="serviceBars"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Tren Indeks per Periode</h2>
+          <p class="muted">
+            Perubahan rata-rata indeks dari waktu ke waktu.
+          </p>
+          <div id="trendChart" class="chart-host"></div>
+        </article>
+
+        <article class="panel wide insights">
+          <h2>Rekomendasi Prioritas</h2>
+          <p class="muted">
+            Dibuat otomatis dari data yang sedang ditampilkan, untuk membantu
+            pengambilan keputusan.
+          </p>
+          <div id="recommendations" class="insight-grid"></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Ringkasan Kelompok</h2>
+        <p class="muted">Keterangan tiap kelompok beserta ciri utamanya.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Kelompok</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Rata-rata Indeks</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Ciri Utama</th>
+              </tr>
+            </thead>
+            <tbody id="clusterTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="panel explain">
+          <h2>Cara Membaca Dashboard</h2>
+          <ul>
+            <li>
+              <strong>Indeks Kepuasan</strong> dihitung otomatis dari rata-rata
+              9 unsur pelayanan, lalu dikonversi ke skala 0&ndash;100.
+            </li>
+            <li>
+              <strong>Kategori</strong> mengikuti standar SKM: A (Sangat Baik),
+              B (Baik), C (Cukup), dan D (Kurang).
+            </li>
+            <li>
+              <strong>Filter</strong> memudahkan pimpinan melihat indeks per
+              periode, jenis layanan, dan jenis kelamin.
+            </li>
+            <li>
+              <strong>Kelompok terendah</strong> adalah segmen yang paling perlu
+              ditingkatkan pelayanannya.
+            </li>
+          </ul>
+        </article>
+
+        <article class="panel explain">
+          <h2>Bagaimana K-Means Bekerja?</h2>
+          <ol>
+            <li>Tentukan jumlah kelompok <strong>K</strong>.</li>
+            <li>Pilih K titik pusat awal secara acak.</li>
+            <li>Masukkan setiap responden ke pusat terdekat.</li>
+            <li>Hitung ulang pusat dari rata-rata anggota kelompok.</li>
+            <li>Ulangi sampai kelompok tidak berubah (stabil).</li>
+          </ol>
+          <p class="muted">
+            Hasilnya: responden dengan jawaban mirip otomatis berkumpul pada
+            kelompok yang sama, sehingga pola kepuasan lebih mudah dibaca.
+          </p>
+        </article>
+      </section>
+
+      <details class="panel" id="dataPanel">
+        <summary id="dataSummary">Lihat Data Responden</summary>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">No</th>
+                <th scope="col">Tanggal</th>
+                <th scope="col">Jenis Kelamin</th>
+                <th scope="col">Usia</th>
+                <th scope="col">Layanan</th>
+                <th scope="col">Indeks</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Kelompok</th>
+              </tr>
+            </thead>
+            <tbody id="dataTableBody"></tbody>
+          </table>
+        </div>
+      </details>
+    </main>
+
+    <footer class="dash-footer">
+      Kantor Kecamatan Talun &mdash; Kabupaten Pekalongan<br />
+      Dashboard monitoring indeks kepuasan masyarakat &middot; K-Means
+    </footer>
+
+    <noscript>
+      <p class="wrap data-note">
+        Dashboard membutuhkan JavaScript untuk menghitung indeks dan kelompok
+        K-Means. Silakan aktifkan JavaScript pada peramban Saudara.
+      </p>
+    </noscript>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>
