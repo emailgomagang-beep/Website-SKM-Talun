@@ -368,11 +368,12 @@
       formData.append(key, value);
     });
 
-    fetch(ENDPOINT, { method: "POST", body: formData })
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.text();
-      })
+    fetch(ENDPOINT, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors",
+      cache: "no-store",
+    })
       .then(function () {
         showMessage(
           "Terima kasih, survei berhasil dikirim. Atas bantuan Saudara kami ucapkan terima kasih.",
