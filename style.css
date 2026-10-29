@@ -607,6 +607,21 @@ button {
   font-size: 0.9rem;
 }
 
+.footer-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #ffd37a;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 211, 122, 0.5);
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
 .to-top {
   position: fixed;
   right: 1rem;
